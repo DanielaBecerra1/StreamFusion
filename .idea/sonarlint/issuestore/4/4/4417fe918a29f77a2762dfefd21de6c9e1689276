@@ -1,0 +1,14 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ãÔ Äıÿÿÿÿ8†§«î2J$1116d11d-86a0-4c08-9f80-ec3cb5a29737
+q
+java:S1068".Remove this unused "platformId" private field.(ÂÛäâ8¬óî2J$285272e8-8bd2-4c8b-bb5d-140c31c28c06
+t
+java:S1068",Remove this unused "userName" private field.(Û”øÚøÿÿÿÿ8¬óî2J$4f19d26f-a26c-4373-83bb-34f61184b223
+x
+java:S1068"0Remove this unused "platformName" private field.(úÛ¨øÿÿÿÿ8’¬óî2J$44f4af4f-01d3-4036-b649-7a0ffc708519
+{
+java:S1068"3Remove this unused "platformAccount" private field.(Îñ«„ıÿÿÿÿ8“¬óî2J$d7e77aad-6548-442e-921a-15f2767f75ea
+{
+java:S1068"3Remove this unused "passwordAccount" private field.(Ç€£Êıÿÿÿÿ8“¬óî2J$5b256abe-5218-4ea8-ac80-678491d35b67
+t
+java:S1068"1Remove this unused "totalAccounts" private field.(§Ù™8“¬óî2J$745fddf0-fb26-4eb8-950e-3af774f9ca7f

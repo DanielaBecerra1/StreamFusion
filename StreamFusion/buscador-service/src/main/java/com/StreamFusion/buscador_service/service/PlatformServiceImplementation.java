@@ -1,16 +1,16 @@
 package com.StreamFusion.buscador_service.service;
 
+import com.StreamFusion.buscador_service.bdRepository.PlatformRepository;
 import com.StreamFusion.buscador_service.entity.Platform;
-import com.StreamFusion.buscador_service.repository.PlatformRepository;
+import com.StreamFusion.buscador_service.error.PlatformNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class PlatformServiceImplementation implements PlatformService {
-
     @Autowired
     private PlatformRepository platformRepository;
 
@@ -26,30 +26,61 @@ public class PlatformServiceImplementation implements PlatformService {
 
     @Override
     public Platform updatePlatform(long id, Platform platform) {
-        Platform platformDb = platformRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Platform not found with id: " + id));
+        Platform platformDb = platformRepository.findById(id).orElse(null);
+        if (platformDb != null) {
+            if (platform.getName() != null && !platform.getName().isEmpty()) {
+                platformDb.setName(platform.getName());
+            }
+            if (platform.getPrice() != 0) {
+                platformDb.setPrice(platform.getPrice());
+            }
 
-        if (Objects.nonNull(platform.getCode()) && !platform.getCode().isEmpty()) {
-            platformDb.setCode(platform.getCode());
-        }
-
-        if (Objects.nonNull(platform.getName()) && !platform.getName().isEmpty()) {
-            platformDb.setName(platform.getName());
-        }
-
-        if (platform.getPrice() > 0) {
-            platformDb.setPrice(platform.getPrice());
-        }
-
-        if (Objects.nonNull(platform.getAvailable())) {
             platformDb.setAvailable(platform.getAvailable());
-        }
 
-        return platformRepository.save(platformDb);
+            return platformRepository.save(platformDb);
+        } else {
+            throw new RuntimeException("Platform not found with id: " + id);
+        }
     }
+
 
     @Override
     public void deletePlatform(long id) {
         platformRepository.deleteById(id);
     }
+
+    //fltrar por los atributos
+    @Override
+    public List<Platform> findByAvailable(boolean available) {
+        return platformRepository.findByAvailable(available);
+    }
+
+    @Override
+    public List<Platform> findByPrice(long price) {
+        return platformRepository.findByPrice(price);
+    }
+
+    @Override
+    public Optional<Platform> findPlatformByNameWithJPQL(String name){
+        return platformRepository.findPlatformByNameWithJPQL(name);
+    }
+
+    @Override
+    public List<Platform> findByNameIgnoreCase(String name){
+        return platformRepository.findByNameIgnoreCase(name);
+    }
+
+    @Override
+    public Platform findByid(long id) throws PlatformNotFoundException {
+        Optional<Platform> platform= platformRepository.findById(id);
+        if(!platform.isPresent()){
+            throw new PlatformNotFoundException("la Plataforma no esta disponible");
+        }
+        return platform.get();
+    }
+
+
+
+
+
 }
